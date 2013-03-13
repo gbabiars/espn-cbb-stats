@@ -6,7 +6,8 @@
 var express = require('express')
     http = require('http'),
     path = require('path'),
-    stats = require('./routes/stats');
+    stats = require('./routes/stats')
+    teams = require('./routes/teams');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.get('/', function(req, res) {
     res.send('Hello');
 });
 app.get('/api/stats', stats.get);
+app.get('/api/teams', teams.get);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

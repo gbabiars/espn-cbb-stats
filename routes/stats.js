@@ -3,12 +3,13 @@ var async = require('async'),
     moment = require('moment');
 
 var KEY = '42mwg9awhwjn8wb4rhps3efy',
-    NEWS_API_ROOT = 'http://api.espn.com/v1/sports/basketball/mens-college-basketball/news/',
+    NEWS_API_ROOT = 'http://api.espn.com/v1/sports/basketball/mens-college-basketball/news/?apikey=' + KEY,
+    TEAMS_API_ROOT = 'http://api.espn.com/v1/sports/basketball/mens-college-basketball/teams/?apikey=' + KEY,
     LIMIT = 50;
 
 var getNewsUrl = function(offset) {
     offset = offset || 0;
-    var url = NEWS_API_ROOT + '?apikey=' + KEY + '&limit=' + LIMIT + '&offset=' + offset + '&dates=' + getToday();
+    var url = NEWS_API_ROOT + '&limit=' + LIMIT + '&offset=' + offset + '&dates=' + getToday();
     console.log(url);
     return url;
 }

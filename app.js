@@ -28,7 +28,7 @@ app.configure('development', function(){
 });
 
 app.get('/', function(req, res) {
-    res.send('Hello');
+    res.sendfile(__dirname + '/public/index.html');
 });
 app.get('/api/stats', stats.today);
 app.get('/api/stats/today', stats.today);

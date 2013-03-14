@@ -30,7 +30,9 @@ app.configure('development', function(){
 app.get('/', function(req, res) {
     res.send('Hello');
 });
-app.get('/api/stats', stats.get);
+app.get('/api/stats', stats.today);
+app.get('/api/stats/today', stats.today);
+app.get('/api/stats/month', stats.month);
 app.get('/api/teams', teams.get);
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -11,7 +11,9 @@ exports.today = function(req, res) {
                 })
                 team.count = existingTeam ? existingTeam.count : 0;
             });
-            res.json(teams);
+            res.json(_.sortBy(teams, function(t) {
+                return -t.count;
+            }));
         });
     });
 }
@@ -25,7 +27,9 @@ exports.month = function(req, res) {
                 })
                 team.count = existingTeam ? existingTeam.count : 0;
             });
-            res.json(teams);
+            res.json(_.sortBy(teams, function(t) {
+                return -t.count;
+            }));
         });
     });
 }

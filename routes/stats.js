@@ -1,5 +1,5 @@
-var teamLoader = require('../data/teams').loader,
-    statsLoader = require('../data/stats').loader;
+var teamLoader = require('../data/teams'),
+    statsLoader = require('../data/stats');
 
 exports.today = function(req, res) {
     teamLoader.all([], 1, function(error, teams) {

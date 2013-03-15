@@ -33,7 +33,7 @@ app.get('/', function(req, res) {
 app.get('/api/stats', stats.today);
 app.get('/api/stats/today', stats.today);
 app.get('/api/stats/month', stats.month);
-app.get('/api/teams', teams.get);
+app.get('/api/teams', teams.all);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

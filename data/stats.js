@@ -1,20 +1,5 @@
-var async = require('async'),
-    request = require('request'),
-    moment = require('moment');
-
-var KEY = '42mwg9awhwjn8wb4rhps3efy',
-    NEWS_API_ROOT = 'http://api.espn.com/v1/sports/basketball/mens-college-basketball/news/?apikey=' + KEY,
-    LIMIT = 50;
-
-var getNewsUrl = function(options) {
-    var offset,
-        url;
-
-    offset = options.page ? ((options.page - 1) * LIMIT) : 0;
-    url = NEWS_API_ROOT + '&limit=' + LIMIT + '&offset=' + offset + '&dates=' + options.day.format('YYYYMMDD');
-
-    return url;
-}
+var moment = require('moment'),
+    espnApi = require('./espn-api');
 
 var load = function(options, callback) {
 
@@ -23,7 +8,7 @@ var load = function(options, callback) {
         type = options.type,
         day = options.day;
 
-    request.get({ uri: getNewsUrl({ page: page, day: day }), json: true }, function(error, response, body) {
+    espnApi.load({ type: 'news', page: page, day: day.format('YYYYMMDD')}, function(error, body) {
 
         body.headlines.forEach(function(headline) {
             headline.categories
@@ -70,7 +55,5 @@ var month = function(callback) {
     load({ type: 'month', day: moment() }, callback);
 }
 
-exports.loader = {
-    today: today,
-    month: month
-}
+exports.today = today;
+exports.month = month;

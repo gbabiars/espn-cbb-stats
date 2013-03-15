@@ -1,7 +1,7 @@
-var teamsLoader = require('../data/teams');
+var teamsLoader = require('../data/teams-loader');
 
 exports.all = function(req, res) {
-    teamsLoader.all([], 1, function(error, teams) {
+    teamsLoader.all(function(error, teams) {
         res.json(teams);
     });
 }

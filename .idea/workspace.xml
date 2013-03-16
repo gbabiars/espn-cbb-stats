@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0b268b33-429e-453b-aa9b-f72f9fdc57a0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/conferences-loader.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/conferences.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/news-by-conference.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/data/stats-loader.js" afterPath="$PROJECT_DIR$/data/news-loader.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/routes/stats.js" afterPath="$PROJECT_DIR$/routes/news-by-team.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/main.js" afterPath="$PROJECT_DIR$/public/javascripts/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cbb-stats.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363415359867" ignored="false" />
+    <file path="/Dummy.txt" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363477494174" ignored="false" />
     <file path="/index.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363223260477" ignored="false" />
     <file path="/app.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363474024409" ignored="false" />
     <file path="/stats.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363353818348" ignored="false" />
@@ -414,7 +406,11 @@
       <created>1363415361816</created>
       <updated>1363415361816</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Displaying grouped by conference">
+      <created>1363477430427</created>
+      <updated>1363477430427</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -482,7 +478,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minified files in page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Displaying grouped by conference" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -510,6 +506,7 @@
     <MESSAGE value="Added Procfile" />
     <MESSAGE value="Modified redis for Heroku" />
     <MESSAGE value="Minified files in page" />
+    <MESSAGE value="Displaying grouped by conference" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

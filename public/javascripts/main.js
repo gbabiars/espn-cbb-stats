@@ -1,8 +1,10 @@
 var App = Em.Application.create({});
 
 App.Router.map(function() {
-    this.route('today');
-    this.route('month');
+    this.route('teamsToday', { path: '/teams/today' });
+    this.route('teamsByMonth', { path: '/teams/month' });
+    this.route('conferencesToday', { path: '/conferences/today' });
+    this.route('conferencesByMonth', { path: '/conferences/month' });
 });
 
 App.TeamStat = Em.Object.extend({
@@ -16,12 +18,18 @@ App.TeamStat = Em.Object.extend({
     }.property('location', 'name')
 });
 
-App.TodayRoute = Em.Route.extend({
+App.ConferenceStat = Em.Object.extend({
+    id: '',
+    name: '',
+    count: 0
+});
+
+App.TeamsTodayRoute = Em.Route.extend({
     setupController: function(controller) {
         var stats = [];
         $.ajax({
             type: 'GET',
-            url: '/api/stats',
+            url: '/api/news',
             dataType: 'json',
             beforeSend: function() {
                 controller.set('isLoading', true);
@@ -37,21 +45,21 @@ App.TodayRoute = Em.Route.extend({
             });
     },
     renderTemplate: function(controller) {
-        this.render('stats', { controller: controller });
+        this.render('teamsStats', { controller: controller });
     }});
 
-App.TodayController = Em.ArrayController.extend({
+App.TeamsTodayController = Em.ArrayController.extend({
     content: [],
     title: 'Number of tags per team today',
     isLoading: false
 });
 
-App.MonthRoute = Em.Route.extend({
+App.TeamsByMonthRoute = Em.Route.extend({
     setupController: function(controller) {
         var stats = [];
         $.ajax({
             type: 'GET',
-            url: '/api/stats/month',
+            url: '/api/news/month',
             dataType: 'json',
             beforeSend: function() {
                 controller.set('isLoading', true);
@@ -67,17 +75,79 @@ App.MonthRoute = Em.Route.extend({
             });
     },
     renderTemplate: function(controller) {
-        this.render('stats', { controller: controller });
+        this.render('teamsStats', { controller: controller });
     }
 });
 
-App.MonthController = Em.ArrayController.extend({
+App.TeamsByMonthController = Em.ArrayController.extend({
     content: [],
     title: 'Number of tags per team this month',
     isLoading: false
 });
 
-App.StatsView = Em.View.extend({
+App.ConferencesTodayRoute = Em.Route.extend({
+    setupController: function(controller) {
+        var stats = [];
+        $.ajax({
+            type: 'GET',
+            url: '/api/news/by-conference',
+            dataType: 'json',
+            beforeSend: function() {
+                controller.set('isLoading', true);
+            }
+        }).done(function(data) {
+                data.forEach(function(d) {
+                    stats.pushObject(App.ConferenceStat.create(d));
+                })
+                controller.set('content', stats);
+            })
+            .always(function() {
+                controller.set('isLoading', false);
+            });
+    },
+    renderTemplate: function(controller) {
+        this.render('conferencesStats', { controller: controller });
+    }
+});
+
+App.ConferencesTodayController = Em.ArrayController.extend({
+    content: [],
+    title: 'Number of tags per conference today',
+    isLoading: false
+});
+
+App.ConferencesByMonthRoute = Em.Route.extend({
+    setupController: function(controller) {
+        var stats = [];
+        $.ajax({
+            type: 'GET',
+            url: '/api/news/by-conference/month',
+            dataType: 'json',
+            beforeSend: function() {
+                controller.set('isLoading', true);
+            }
+        }).done(function(data) {
+                data.forEach(function(d) {
+                    stats.pushObject(App.ConferenceStat.create(d));
+                })
+                controller.set('content', stats);
+            })
+            .always(function() {
+                controller.set('isLoading', false);
+            });
+    },
+    renderTemplate: function(controller) {
+        this.render('conferencesStats', { controller: controller });
+    }
+});
+
+App.ConferencesByMonthController = Em.ArrayController.extend({
+    content: [],
+    title: 'Number of tags per conference this month',
+    isLoading: false
+});
+
+App.TeamsStatsView = Em.View.extend({
     contentChanged: function() {
         var data,
             options,
@@ -95,7 +165,7 @@ App.StatsView = Em.View.extend({
                 color: '#1f77b4',
                 values: data
             }];
-            height = data.length * 20;
+            height = data.length * 20 + 200;
             this.$().find('#chart svg').css({ height: height + 'px' });
             nv.addGraph(function() {
                 var chart = nv.models.multiBarHorizontalChart()
@@ -117,4 +187,49 @@ App.StatsView = Em.View.extend({
             });
         }
     }.observes('controller.content')
-})
+});
+
+App.ConferencesStatsView = Em.View.extend({
+    contentChanged: function() {
+        var data,
+            options,
+            height;
+
+        if(this.get('controller.content')) {
+            console.log(this.get('controller.content'))
+            data = this.get('controller.content').map(function(d) {
+                console.log(d);
+                return {
+                    label: d.get('name'),
+                    value: d.get('count')
+                };
+            });
+            options = [{
+                key: '# of stories',
+                color: '#1f77b4',
+                values: data
+            }];
+            console.log(data.length);
+            height = data.length * 20 + 200;
+            this.$().find('#chart svg').css({ height: height + 'px' });
+            nv.addGraph(function() {
+                var chart = nv.models.multiBarHorizontalChart()
+                    .x(function(d) { return d.label })
+                    .y(function(d) { return d.value })
+                    .margin({ top: 30, right: 20, bottom: 50, left: 100 })
+                    .showValues(true)
+                    .tooltips(false)
+                    .showControls(false);
+
+                d3.select('#chart svg')
+                    .datum(options)
+                    .transition().duration(500)
+                    .call(chart);
+
+                nv.utils.windowResize(chart.update);
+
+                return chart;
+            });
+        }
+    }.observes('controller.content')
+});

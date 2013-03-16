@@ -6,8 +6,10 @@
 var express = require('express')
     http = require('http'),
     path = require('path'),
-    stats = require('./routes/stats')
-    teams = require('./routes/teams');
+    newsByTeam = require('./routes/news-by-team'),
+    newsByConference = require('./routes/news-by-conference'),
+    teams = require('./routes/teams'),
+    conferences = require('./routes/conferences');
 
 var app = express();
 
@@ -30,10 +32,13 @@ app.configure('development', function(){
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/public/index.html');
 });
-app.get('/api/stats', stats.today);
-app.get('/api/stats/today', stats.today);
-app.get('/api/stats/month', stats.month);
+app.get('/api/news', newsByTeam.today);
+app.get('/api/news/today', newsByTeam.today);
+app.get('/api/news/month', newsByTeam.month);
+app.get('/api/news/by-conference', newsByConference.today);
+app.get('/api/news/by-conference/month', newsByConference.month);
 app.get('/api/teams', teams.all);
+app.get('/api/conferences', conferences.all);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

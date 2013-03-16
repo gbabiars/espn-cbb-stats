@@ -1,10 +1,10 @@
 var _ = require('underscore'),
     teamLoader = require('../data/teams-loader'),
-    statsLoader = require('../data/stats-loader');
+    newsLoader = require('../data/news-loader');
 
 exports.today = function(req, res) {
     teamLoader.all(function(error, teams) {
-        statsLoader.today(function(error, news) {
+        newsLoader.today(function(error, news) {
             teams.forEach(function(team) {
                 var existingTeam = _.find(news, function(n) {
                     return n.id === team.id;
@@ -20,7 +20,7 @@ exports.today = function(req, res) {
 
 exports.month = function(req, res) {
     teamLoader.all(function(error, teams) {
-        statsLoader.month(function(error, news) {
+        newsLoader.month(function(error, news) {
             teams.forEach(function(team) {
                 var existingTeam = _.find(news, function(n) {
                     return n.id === team.id;

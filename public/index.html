@@ -38,8 +38,10 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 <li>{{#linkTo "index"}}Home{{/linkTo}}</li>
-                                <li>{{#linkTo "today"}}Today{{/linkTo}}</li>
-                                <li>{{#linkTo "month"}}Month{{/linkTo}}</li>
+                                <li>{{#linkTo "teamsToday"}}Today By Team{{/linkTo}}</li>
+                                <li>{{#linkTo "teamsByMonth"}}Month By Team{{/linkTo}}</li>
+                                <li>{{#linkTo "conferencesToday"}}Today By Conference{{/linkTo}}</li>
+                                <li>{{#linkTo "conferencesByMonth"}}Month By Conference{{/linkTo}}</li>
                             </ul>
                         </div><!--/.nav-collapse -->
                     </div>
@@ -60,7 +62,7 @@
                 <div class="hero-unit">
                     <h1>ESPN CBB Stats</h1>
                     <p>Ever wonder what ESPN writes about most when it comes to college basketball? Look no further.</p>
-                    <p><img src="img/espn-api-red_150.png" alt="Built with the ESPN API" /></p>
+                    <p><a href="http://espn.go.com" target="_blank"><img src="img/espn-api-red_150.png" alt="Built with the ESPN API" /></a></p>
                 </div>
 
                 <!-- Example row of columns -->
@@ -68,12 +70,18 @@
                     <div class="span6">
                         <h2>Today's Stats</h2>
                         <p>An overview of the number of stories by team for today.</p>
-                        <p>{{#linkTo "today" class="btn"}}View details &raquo;{{/linkTo}}</p>
+                        <div class="row">
+                            {{#linkTo "teamsToday" class="btn span2"}}View By Team &raquo;{{/linkTo}}
+                            {{#linkTo "conferencesToday" class="btn span2"}}View By Conference &raquo;{{/linkTo}}
+                        </div>
                     </div>
                     <div class="span6">
                         <h2>Current Month's Stats</h2>
                         <p>An overview of the number of stories by teamm for the current month.</p>
-                        <p>{{#linkTo "month" class="btn"}}View details &raquo;{{/linkTo}}</p>
+                        <div class="row">
+                            {{#linkTo "teamsByMonth" class="btn span2"}}View By Team &raquo;{{/linkTo}}
+                            {{#linkTo "conferencesByMonth" class="btn span2"}}View By Conference &raquo;{{/linkTo}}
+                        </div>
                     </div>
                 </div>
 
@@ -99,7 +107,17 @@
             </div>
         </script>
 
-        <script type="text/x-handlebars" data-template-name="stats">
+        <script type="text/x-handlebars" data-template-name="teamsStats">
+            <div class="container">
+                <h2 class="pull-left">{{title}}</h2>
+                {{#if isLoading}}<span class="label label-info label-header">Loading</span>{{/if}}
+                <div id="chart">
+                    <svg></svg>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="conferencesStats">
             <div class="container">
                 <h2 class="pull-left">{{title}}</h2>
                 {{#if isLoading}}<span class="label label-info label-header">Loading</span>{{/if}}
@@ -120,11 +138,11 @@
 
         <script src="javascripts/main.js"></script>
 
-        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
+        <!--<script>-->
+            <!--var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];-->
+            <!--(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];-->
+            <!--g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';-->
+            <!--s.parentNode.insertBefore(g,s)}(document,'script'));-->
+        <!--</script>-->
     </body>
 </html>

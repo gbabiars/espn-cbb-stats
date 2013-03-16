@@ -6,13 +6,13 @@
     </list>
     <ignored path="cbb-stats.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363477494174" ignored="false" />
+    <file path="/Dummy.txt" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363477506117" ignored="false" />
     <file path="/index.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363223260477" ignored="false" />
     <file path="/app.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363474024409" ignored="false" />
     <file path="/stats.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363353818348" ignored="false" />
     <file path="/teams.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363323860535" ignored="false" />
     <file path="/index.html" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363477271482" ignored="false" />
-    <file path="/main.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363476379298" ignored="false" />
+    <file path="/main.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363477511082" ignored="false" />
     <file path="/dummy.xml" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363476666990" ignored="false" />
     <file path="/espn-api.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363324871974" ignored="false" />
     <file path="/stats-loader.js" changelist="0b268b33-429e-453b-aa9b-f72f9fdc57a0" time="1363412739637" ignored="false" />
@@ -410,7 +410,11 @@
       <created>1363477430427</created>
       <updated>1363477430427</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Displaying grouped by conference">
+      <created>1363477510539</created>
+      <updated>1363477510539</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">

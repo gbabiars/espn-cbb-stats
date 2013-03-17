@@ -24,12 +24,12 @@ App.ConferenceStat = Em.Object.extend({
     count: 0
 });
 
-App.TeamsTodayRoute = Em.Route.extend({
-    setupController: function(controller) {
+App.TeamsLoadMixin = Em.Mixin.create({
+    loadAndSetTeamsAsContent: function(controller, url) {
         var stats = [];
         $.ajax({
             type: 'GET',
-            url: '/api/news',
+            url: url,
             dataType: 'json',
             beforeSend: function() {
                 controller.set('isLoading', true);
@@ -43,6 +43,12 @@ App.TeamsTodayRoute = Em.Route.extend({
             .always(function() {
                 controller.set('isLoading', false);
             });
+    }
+});
+
+App.TeamsTodayRoute = Em.Route.extend(App.TeamsLoadMixin, {
+    setupController: function(controller) {
+        this.loadAndSetTeamsAsContent(controller, '/api/news/by-team');
     },
     renderTemplate: function(controller) {
         this.render('teamsStats', { controller: controller });
@@ -54,25 +60,9 @@ App.TeamsTodayController = Em.ArrayController.extend({
     isLoading: false
 });
 
-App.TeamsByMonthRoute = Em.Route.extend({
+App.TeamsByMonthRoute = Em.Route.extend(App.TeamsLoadMixin, {
     setupController: function(controller) {
-        var stats = [];
-        $.ajax({
-            type: 'GET',
-            url: '/api/news/month',
-            dataType: 'json',
-            beforeSend: function() {
-                controller.set('isLoading', true);
-            }
-        }).done(function(data) {
-                data.forEach(function(d) {
-                    stats.pushObject(App.TeamStat.create(d));
-                })
-                controller.set('content', stats);
-            })
-            .always(function() {
-                controller.set('isLoading', false);
-            });
+        this.loadAndSetTeamsAsContent(controller, '/api/news/by-team/month');
     },
     renderTemplate: function(controller) {
         this.render('teamsStats', { controller: controller });
@@ -85,12 +75,12 @@ App.TeamsByMonthController = Em.ArrayController.extend({
     isLoading: false
 });
 
-App.ConferencesTodayRoute = Em.Route.extend({
-    setupController: function(controller) {
+App.ConferencesLoadMixin = Em.Mixin.create({
+    loadAndSetConferencesAsContent: function(controller, url) {
         var stats = [];
         $.ajax({
             type: 'GET',
-            url: '/api/news/by-conference',
+            url: url,
             dataType: 'json',
             beforeSend: function() {
                 controller.set('isLoading', true);
@@ -104,6 +94,12 @@ App.ConferencesTodayRoute = Em.Route.extend({
             .always(function() {
                 controller.set('isLoading', false);
             });
+    }
+})
+
+App.ConferencesTodayRoute = Em.Route.extend(App.ConferencesLoadMixin, {
+    setupController: function(controller) {
+        this.loadAndSetConferencesAsContent(controller, '/api/news/by-conference');
     },
     renderTemplate: function(controller) {
         this.render('conferencesStats', { controller: controller });
@@ -116,25 +112,9 @@ App.ConferencesTodayController = Em.ArrayController.extend({
     isLoading: false
 });
 
-App.ConferencesByMonthRoute = Em.Route.extend({
+App.ConferencesByMonthRoute = Em.Route.extend(App.ConferencesLoadMixin, {
     setupController: function(controller) {
-        var stats = [];
-        $.ajax({
-            type: 'GET',
-            url: '/api/news/by-conference/month',
-            dataType: 'json',
-            beforeSend: function() {
-                controller.set('isLoading', true);
-            }
-        }).done(function(data) {
-                data.forEach(function(d) {
-                    stats.pushObject(App.ConferenceStat.create(d));
-                })
-                controller.set('content', stats);
-            })
-            .always(function() {
-                controller.set('isLoading', false);
-            });
+        this.loadAndSetConferencesAsContent(controller, '/api/news/by-conference/month');
     },
     renderTemplate: function(controller) {
         this.render('conferencesStats', { controller: controller });
@@ -196,9 +176,7 @@ App.ConferencesStatsView = Em.View.extend({
             height;
 
         if(this.get('controller.content')) {
-            console.log(this.get('controller.content'))
             data = this.get('controller.content').map(function(d) {
-                console.log(d);
                 return {
                     label: d.get('name'),
                     value: d.get('count')
@@ -209,7 +187,6 @@ App.ConferencesStatsView = Em.View.extend({
                 color: '#1f77b4',
                 values: data
             }];
-            console.log(data.length);
             height = data.length * 20 + 200;
             this.$().find('#chart svg').css({ height: height + 'px' });
             nv.addGraph(function() {

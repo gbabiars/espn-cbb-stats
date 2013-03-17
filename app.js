@@ -32,10 +32,11 @@ app.configure('development', function(){
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/public/index.html');
 });
-app.get('/api/news', newsByTeam.today);
-app.get('/api/news/today', newsByTeam.today);
-app.get('/api/news/month', newsByTeam.month);
+app.get('/api/news/by-team', newsByTeam.today);
+app.get('/api/news/by-team/today', newsByTeam.today);
+app.get('/api/news/by-team/month', newsByTeam.month);
 app.get('/api/news/by-conference', newsByConference.today);
+app.get('/api/news/by-conference/today', newsByConference.today);
 app.get('/api/news/by-conference/month', newsByConference.month);
 app.get('/api/teams', teams.all);
 app.get('/api/conferences', conferences.all);

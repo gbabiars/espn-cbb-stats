@@ -31,7 +31,7 @@ var getDay = function(options, callback) {
     var day = options.day,
         news = [];
 
-    var loadNewsHandler = function(error, data) {
+    var loadNewsHandler = function(data) {
 
         var teamIds = convertToTeamIds(data.json);
 
@@ -47,13 +47,13 @@ var getDay = function(options, callback) {
         });
 
         if(data.hasMorePages) {
-            espnApi.load({ type: 'news', day: day, page: data.page + 1 }, loadNewsHandler);
+            espnApi.load({ type: 'news', day: day, page: data.page + 1 }).then(loadNewsHandler);
         } else {
             callback(null, news);
         }
     };
 
-    espnApi.load({ type: 'news', day: day, page: 1 }, loadNewsHandler);
+    espnApi.load({ type: 'news', day: day, page: 1 }).then(loadNewsHandler);
 }
 
 var getCachedDay = function(options, callback) {

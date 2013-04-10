@@ -1,4 +1,5 @@
-var request = require('request');
+var request = require('request'),
+    Q = require('q');
 
 var roots,
     key,
@@ -12,8 +13,9 @@ key = '42mwg9awhwjn8wb4rhps3efy';
 
 limit = 50;
 
-var load = function(options, callback) {
-    var page,
+var load = function(options) {
+    var deferred = Q.defer(),
+        page,
         type,
         offset,
         url;
@@ -30,11 +32,16 @@ var load = function(options, callback) {
 
     setTimeout(function() {
         request.get({ uri: url, json: true }, function(error, response, body) {
-            var hasMorePages = body.resultsCount > (body.resultsLimit + body.resultsOffset);
-
-            callback(error, { json: body, page: page, hasMorePages: hasMorePages });
+            if(error) {
+                deferred.reject(new Error(error));
+            } else {
+                var hasMorePages = body.resultsCount > (body.resultsLimit + body.resultsOffset);
+                deferred.resolve({ json: body, page: page, hasMorePages: hasMorePages });
+            }
         })
     }, 200);
+
+    return deferred.promise;
 }
 
 exports.load = load;

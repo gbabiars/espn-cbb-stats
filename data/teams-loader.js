@@ -28,7 +28,7 @@ var getTeams = function(options, callback) {
 
     var teams = [];
 
-    var loadTeamsHandler = function(error, data) {
+    var loadTeamsHandler = function(data) {
         var convertedTeams = convertToTeams(data.json);
 
         convertedTeams.forEach(function(team) {
@@ -36,13 +36,15 @@ var getTeams = function(options, callback) {
         });
 
         if(data.hasMorePages) {
-            espnApi.load({ type: 'teams', page: data.page + 1 }, loadTeamsHandler);
+            espnApi.load({ type: 'teams', page: data.page + 1 })
+                .then(loadTeamsHandler);
         } else {
             callback(null, teams);
         }
     }
 
-    espnApi.load({ type: 'teams', page: 1 }, loadTeamsHandler);
+    espnApi.load({ type: 'teams', page: 1 })
+        .then(loadTeamsHandler);
 
 }
 

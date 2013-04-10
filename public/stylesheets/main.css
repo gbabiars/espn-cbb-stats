@@ -3,3 +3,13 @@
 
 .btn-fill {
   width: 100%; }
+
+.axis text:hover {
+  cursor: pointer; }
+.axis path, .axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges; }
+
+.chart rect {
+  fill: #0088cc; }

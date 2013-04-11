@@ -53,7 +53,6 @@
         </script>
 
 
-
         <script type="text/x-handlebars" data-template-name="index">
 
             <div class="container">
@@ -93,39 +92,12 @@
 
         </script>
 
-        <script type="text/x-handlebars" data-template-name="today">
-            <div class="container">
-                <h2>Today</h2>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th># of Stories</th>
-                    </tr>
-                    {{#each team in content}}
-                    <tr>
-                        <td>{{team.displayName}}</td>
-                        <td>{{team.count}}</td>
-                    </tr>
-                    {{/each}}
-                </table>
-            </div>
-        </script>
 
-        <script type="text/x-handlebars" data-template-name="teamsStats">
+        <script type="text/x-handlebars" data-template-name="statsChart">
             <div class="container">
                 <h2 class="pull-left">{{title}}</h2>
                 {{#if isLoading}}<span class="label label-info label-header">Loading</span>{{/if}}
                 <div id="chart" class="chart">
-                </div>
-            </div>
-        </script>
-
-        <script type="text/x-handlebars" data-template-name="conferencesStats">
-            <div class="container">
-                <h2 class="pull-left">{{title}}</h2>
-                {{#if isLoading}}<span class="label label-info label-header">Loading</span>{{/if}}
-                <div id="chart" class="chart">
-                    <svg></svg>
                 </div>
             </div>
         </script>
